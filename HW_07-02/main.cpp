@@ -1,6 +1,5 @@
 #include <iostream>
 #include <set>
-#include <functional>
 
 int main()
 {

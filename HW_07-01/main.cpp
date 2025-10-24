@@ -1,33 +1,27 @@
 #include <string>
 #include <map>
-#include <vector>
-#include <algorithm>
 #include <iostream>
 
 int main()
 {
 	std::string str{ "Hello world!" };
-	std::map<char, int> map;
-	std::vector<std::pair<char, int>> vec;
-
-	std::cout << "[IN]: " << str << "\n[OUT]:\n";
+	std::map<char, int> rawMap;
 
 	for (auto ch : str)
 	{
-		++map[ch];
+		++rawMap[ch];
 	}
 
-	for (auto [ch, count] : map)
+	std::multimap<int, char, std::less<int>> sortedMap;
+
+	for (auto [ch, count] : rawMap)
 	{
-		vec.emplace_back(ch, count);
+		sortedMap.insert({count, ch});
 	}
 
-	std::sort(vec.begin(), vec.end(), [](auto& a, auto& b)
-		{
-			return a.second < b.second;
-		});
+	std::cout << "[IN]: " << str << "\n[OUT]:\n";
 
-	for (auto [ch, count] : vec)
+	for (auto [count, ch] : sortedMap)
 	{
 		std::cout << ch << ": " << count << std::endl;
 	}
